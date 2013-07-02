@@ -6,6 +6,7 @@ use warnings;
 use Apache2::Access ();
 use Apache2::RequestRec;
 use Apache2::RequestUtil ();
+use Apache2::ServerRec;
 
 use Apache2::Const -compile => qw(OK HTTP_UNAUTHORIZED);
 
@@ -14,6 +15,7 @@ sub handler {
 
     my $user = $r->user;
     unless (defined($user)) {
+        $r->server->log_error("Apache2::UserDirAuthz: no user");
         $r->note_basic_auth_failure;
         return Apache2::Const::HTTP_UNAUTHORIZED;
     }
@@ -38,6 +40,7 @@ sub handler {
             return Apache2::Const::OK;
     }
 
+    $r->server->log_error("Apache2::UserDirAuthz: user '$user' not allowed access to location '$uri'");
     $r->note_basic_auth_failure;
     return Apache2::Const::HTTP_UNAUTHORIZED;
 }
