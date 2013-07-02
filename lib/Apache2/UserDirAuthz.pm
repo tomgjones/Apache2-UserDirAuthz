@@ -49,7 +49,7 @@ sub handler {
 
 =head1 NAME
 
-Apache2::UserdirAuthz - simple one directory per username access control
+Apache2::UserDirAuthz - simple one directory per username access control
 
 =head1 SYNOPSIS
 
@@ -58,7 +58,7 @@ Apache2::UserdirAuthz - simple one directory per username access control
     <Location />
         AuthType Kerberos     # should work with any authtype
         Require valid-user
-        PerlAuthzHandler Apache2::UserdirAuthz
+        PerlAuthzHandler Apache2::UserDirAuthz
     </Location>
 
 =head1 DESCRIPTION
